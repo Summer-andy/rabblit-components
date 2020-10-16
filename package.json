@@ -1,13 +1,13 @@
 {
-  "name": "rabbit-component",
-  "version": "0.0.1",
+  "name": "rabbit-components",
+  "version": "0.0.2",
   "description": "",
-  "main": "dist/rabbit-component.js",
-  "unpkg": "dist/rabbit-component-umd.js",
-  "module": "dist/rabbit-component-esm.js",
+  "main": "dist/rabbit-components.js",
+  "unpkg": "dist/rabbit-components-umd.js",
+  "module": "dist/rabbit-components-esm.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "rollup -c && gzip-size dist/rabbit-component.js",
+    "build": "rollup -c && gzip-size dist/rabbit-components.js",
     "format": "prettier --write \"{src,test,demo}/**/*.js\""
   },
   "publishConfig": {
@@ -38,6 +38,8 @@
     "gzip-size-cli": "^3.0.0",
     "jest": "^24.8.0",
     "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "rollup": "^1.10.1",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-cleanup": "^3.1.1",
@@ -45,9 +47,7 @@
     "rollup-plugin-terser": "^5.1.2",
     "terser": "^4.1.2",
     "typescript": "^3.5.2",
-    "yarpm": "^0.2.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "yarpm": "^0.2.1"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2"
