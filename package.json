@@ -1,0 +1,54 @@
+{
+  "name": "rabbit-component",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/rabbit-component.js",
+  "unpkg": "dist/rabbit-component-umd.js",
+  "module": "dist/rabbit-component-esm.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "rollup -c && gzip-size dist/rabbit-component.js",
+    "format": "prettier --write \"{src,test,demo}/**/*.js\""
+  },
+  "keywords": [],
+  "author": "Andy",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/jest": "^24.0.15",
+    "babel-jest": "^24.8.0",
+    "codecov": "^3.6.1",
+    "cross-env": "^5.2.0",
+    "gzip-size-cli": "^3.0.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.19.1",
+    "rollup": "^1.10.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-license": "^0.8.1",
+    "rollup-plugin-terser": "^5.1.2",
+    "terser": "^4.1.2",
+    "typescript": "^3.5.2",
+    "yarpm": "^0.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2"
+  },
+  "dependencies": {},
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/test/test-util.js"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  }
+}
