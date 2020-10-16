@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.10.0
+      
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn test
+      - run: ./node_modules/codecov/bin/codecov

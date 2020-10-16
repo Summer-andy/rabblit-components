@@ -1,0 +1,12 @@
+/node_modules/
+/.idea/
+/.cache/
+/coverage/
+yarn-error.log
+.ignore/
+demo/**/node_modules/
+server/**/node_modules/
+demo/**/.cache/
+demo/**/dist/
+demo/**/preact/
+/dist/
