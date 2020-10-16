@@ -10,7 +10,18 @@
     "build": "rollup -c && gzip-size dist/rabbit-component.js",
     "format": "prettier --write \"{src,test,demo}/**/*.js\""
   },
-  "keywords": [],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Summer-andy/rabblit-component.git"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "css"
+  ],
   "author": "Andy",
   "license": "MIT",
   "devDependencies": {
