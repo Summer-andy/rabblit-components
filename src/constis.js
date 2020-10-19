@@ -23,5 +23,4 @@ export const DISABLE_SPEEDY =
      )
    ));
 
-// Shared empty execution context when generating static styles
 export const STATIC_EXECUTION_CONTEXT = {};

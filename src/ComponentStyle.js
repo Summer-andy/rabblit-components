@@ -1,4 +1,5 @@
-import { SC_VERSION } from './constis';;
+import { SC_VERSION } from './constis';
+import generateName from './utils/generateAlphabeticName';
 import { hash, phash } from './utils/hash';
 
 const SEED = hash(SC_VERSION);
@@ -16,7 +17,7 @@ export default class ComponentStyle {
   generateAndInjectStyles(executionContext, styleSheet, stylis) {
     const { length } = this.rules;
     var componentId = this.componentId;
-    let dynamicHash = phash(this.baseHash, '123');
+    let dynamicHash = phash(this.baseHash, '');
     let css = '';
     const names = [];
 
@@ -31,9 +32,9 @@ export default class ComponentStyle {
     }
 
     if (css) {
-        var name = 'component'
-        const cssFormatted = ['.component { width: 100px;height: 100px;background: red }'];
-        styleSheet.insertRules(componentId, name, cssFormatted);
+      var name = generateName(dynamicHash >>> 0);
+        const cssFormat = stylis(css, `.${name}`, undefined, componentId);
+        styleSheet.insertRules(componentId, name, cssFormat);
         names.push(name);
     }
     return names.join(' ');

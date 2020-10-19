@@ -1,6 +1,11 @@
 import React, { useContext } from 'react'
+import generateComponentId from './utils/generateComponentId'
+import { EMPTY_ARRAY } from './utils/empties'
+import generateDisplayName from './utils/generateDisplayName'
 import ComponentStyle from './ComponentStyle'
+import createStylisInstance from './stylis'
 import StyleSheet from './StyleSheet'
+import { SC_VERSION } from './constis'
 
 var domElements = [
   'a',
@@ -154,15 +159,14 @@ var StylisContext = React.createContext()
 
 var masterSheet = new StyleSheet()
 
-// var masterStylis = createStylisInstance();
+var masterStylis = createStylisInstance()
 
 function useStyleSheet() {
   return useContext(StyleSheetContext) || masterSheet
 }
 
 function useStylis() {
-  return useContext(StylisContext)
-  // return useContext(StylisContext) || masterStylis;
+  return useContext(StylisContext) || masterStylis
 }
 
 function useInjectedStyle(componentStyle, hasAttrs, resolvedAttrs) {
@@ -174,13 +178,14 @@ function useInjectedStyle(componentStyle, hasAttrs, resolvedAttrs) {
     styleSheet,
     stylis
   )
+  return className
 }
 
 function useStyledComponentImpl(forwardedComponent, props) {
   var componentAttrs = forwardedComponent.attrs,
     componentStyle = forwardedComponent.componentStyle
 
-  const { target } = forwardedComponent
+  const { target, styledComponentId } = forwardedComponent
 
   const propsForElement = {}
 
@@ -190,14 +195,48 @@ function useStyledComponentImpl(forwardedComponent, props) {
     props,
     undefined
   )
-  propsForElement.className = 'component'
-
+  console.log(generatedClassName)
+  propsForElement.className = Array.prototype
+    .concat(
+      [],
+      styledComponentId,
+      generatedClassName !== styledComponentId ? generatedClassName : null,
+      props.className,
+      undefined
+    )
+    .filter(Boolean)
+    .join(' ')
   return React.createElement(target, propsForElement)
 }
 
-function createStyledComponent(target, options, rules) {
+const identifiers = {}
+
+function generateId(displayName, parentComponentId) {
+  const name = typeof displayName !== 'string' ? 'sc' : escape(displayName)
+  identifiers[name] = (identifiers[name] || 0) + 1
+
+  const componentId = `${name}-${generateComponentId(
+    SC_VERSION + name + identifiers[name]
+  )}`
+
+  return parentComponentId ? `${parentComponentId}-${componentId}` : componentId
+}
+
+function createStyledComponent(target, options = {}, rules) {
+  const {
+    attrs = EMPTY_ARRAY,
+    componentId = generateId(options.displayName, options.parentComponentId),
+    displayName = generateDisplayName(target)
+  } = options
+
+  const styledComponentId =
+    options.displayName && options.componentId
+      ? `${escape(options.displayName)}-${options.componentId}`
+      : options.componentId || componentId
+
   var WrappedStyledComponent
-  var componentStyle = new ComponentStyle(rules, 'sc-component')
+  var componentStyle = new ComponentStyle(rules, styledComponentId)
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   var forwardRef = (props, ref) =>
     useStyledComponentImpl(WrappedStyledComponent, props, ref)
@@ -208,6 +247,8 @@ function createStyledComponent(target, options, rules) {
   WrappedStyledComponent.attrs = []
   WrappedStyledComponent.componentStyle = componentStyle
   WrappedStyledComponent.target = target
+  WrappedStyledComponent.styledComponentId = styledComponentId
+
   return WrappedStyledComponent
 }
 
