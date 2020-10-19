@@ -1,6 +1,6 @@
 {
   "name": "rabbit-components",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/rabbit-components.js",
   "unpkg": "dist/rabbit-components-umd.js",
